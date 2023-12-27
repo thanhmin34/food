@@ -1,6 +1,11 @@
+import { useCallback } from "react";
 import { useFonts } from "expo-font";
-import { StyleSheet, SafeAreaView } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import BottomNavigate from "./navigate/BottomNavigate";
+
+const Stack = createNativeStackNavigator();
 export default function App() {
   const [fontsLoaded] = useFonts({
     medium: require("./assets/fonts/Poppins-Medium.ttf"),
@@ -18,24 +23,16 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
-    <SafeAreaView
-      style={[styles.container, styles.textStyle]}
-      onLayout={onLayoutRootView}
-    ></SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="HomeScreen"
+          component={BottomNavigate}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: 60,
-    paddingHorizontal: 20,
-    flexDirection: "column",
-    height: "100%",
-  },
-  textStyle: {
-    fontFamily: "regular",
-    fontSize: 20,
-  },
-});
