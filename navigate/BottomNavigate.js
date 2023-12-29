@@ -8,6 +8,9 @@ import {
 } from "@expo/vector-icons";
 import { Home, Cart, User, Favorite, Notification } from "screens";
 import { COLORS } from "constants/theme";
+import TopBarIcon from "components/topBarIcon";
+import { imageUrls } from "constants/imageUrls";
+
 const Tabs = createBottomTabNavigator();
 
 const screenOptions = {
@@ -19,99 +22,62 @@ const screenOptions = {
     bottom: 0,
     right: 0,
     left: 0,
-    height: 70,
+    height: 88,
     elevation: 0,
+    alignItems: "center",
+    justifyContent: "center",
   },
 };
+const screens = [
+  {
+    name: "Home",
+    component: Home,
+    headerShown: false,
+    icon: imageUrls.iconHome,
+    iconActive: imageUrls.iconHomeActive,
+  },
+  {
+    name: "Favorite",
+    component: Favorite,
+    icon: imageUrls.iconHeart,
+    iconActive: imageUrls.iconHeartActive,
+    headerShown: true,
+  },
+  {
+    name: "Order",
+    component: Notification,
+    icon: imageUrls.iconOrder,
+    iconActive: imageUrls.iconOrderActive,
+    headerShown: true,
+  },
+  {
+    name: "Reward",
+    component: User,
+    icon: imageUrls.iconGift,
+    iconActive: imageUrls.iconGiftActive,
+    headerShown: false,
+  },
+];
 const BottomNavigate = () => {
-  const screens = [
-    {
-      name: "Home",
-      component: Home,
-      active: {
-        icon: "silverware-fork-knife",
-        color: COLORS.primary,
-      },
-      unActive: {
-        icon: "silverware-fork-knife",
-        color: COLORS.gray2,
-      },
-      icon: MaterialCommunityIcons,
-      headerShown: false,
-    },
-    {
-      name: "Cart",
-      component: Cart,
-      active: {
-        icon: "cart",
-        color: COLORS.primary,
-      },
-      unActive: {
-        icon: "cart-outline",
-        color: COLORS.gray2,
-      },
-      icon: Ionicons,
-      headerShown: false,
-    },
-    {
-      name: "Favorite",
-      component: Favorite,
-      active: {
-        icon: "favorite",
-        color: COLORS.primary,
-      },
-      unActive: {
-        icon: "favorite-border",
-        color: COLORS.gray2,
-      },
-      icon: MaterialIcons,
-      headerShown: true,
-    },
-    {
-      name: "Notification",
-      component: Notification,
-      active: {
-        icon: "notifications",
-        color: COLORS.primary,
-      },
-      unActive: {
-        icon: "notifications-outline",
-        color: COLORS.gray2,
-      },
-      icon: Ionicons,
-      headerShown: true,
-    },
-    {
-      name: "User",
-      component: User,
-      active: {
-        icon: "user",
-        color: COLORS.primary,
-      },
-      unActive: {
-        icon: "user",
-        color: COLORS.gray2,
-      },
-      icon: SimpleLineIcons,
-      headerShown: false,
-    },
-  ];
-  const renderScreen = (item, index) => {
-    const { name, component, active, unActive, icon, headerShown } = item || {};
-    const Icon = icon ?? <Fragment />;
+  const renderScreen = (item) => {
+    const { name, component, iconActive, icon, headerShown } = item || {};
+
     return (
       <Tabs.Screen
         name={name}
         key={name}
         component={component}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Icon
-              name={focused ? active.icon : unActive.icon}
-              size={24}
-              color={focused ? active.color : unActive.color}
-            />
-          ),
+          tabBarIcon: ({ focused }) => {
+            return (
+              <TopBarIcon
+                focused={focused}
+                iconActive={iconActive}
+                icon={icon}
+                name={name}
+              />
+            );
+          },
           headerShown,
         }}
       />

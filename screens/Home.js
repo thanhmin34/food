@@ -1,32 +1,44 @@
-import React from "react";
-import { Button, View, Text, SafeAreaView, StyleSheet } from "react-native";
+import React, { Fragment, useId } from "react";
+import { SafeAreaView, FlatList } from "react-native";
+import styles from "styles/home.styles";
+import { Banners, Category, Header } from "components/componentsPages/home";
+import ProductsList from "components/componentsPages/productList";
+import NearbyRestaurantsSlider from "components/componentsPages/home/nearbyRestaurantsSlider";
+import { VIEW_UI_NUMBERS, VIEw_NUMBERS_DATA_HOME } from "constants/home";
 
-const Home = ({ navigation }) => {
+const Home = () => {
+  const _id = useId();
+
+  const viewUILayoutData = {
+    [VIEW_UI_NUMBERS.banner]: Banners,
+    [VIEW_UI_NUMBERS.category]: Category,
+    [VIEW_UI_NUMBERS.productsSlider]: ProductsList,
+    [VIEW_UI_NUMBERS.NearbyRestaurantsSlider]: NearbyRestaurantsSlider,
+    [VIEW_UI_NUMBERS.productsFullWidth]: ProductsList,
+  };
+
+  const renderData = () => {
+    // TODO
+    return VIEw_NUMBERS_DATA_HOME;
+  };
+
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate("Cart")}
-        />
-      </View>
+    <SafeAreaView style={styles.main}>
+      <Header />
+      <FlatList
+        data={renderData()}
+        renderItem={({ item }) => {
+          const { number, data } = item || {};
+          const ViewUILayout = viewUILayoutData[number];
+          if (!ViewUILayout) return <Fragment />;
+          return <ViewUILayout data={data} />;
+        }}
+        keyExtractor={(i, index) => `${index}-${_id}`}
+        horizontal={false}
+        showsVerticalScrollIndicator={false}
+      />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: 60,
-    paddingHorizontal: 20,
-    flexDirection: "column",
-    height: "100%",
-  },
-  textStyle: {
-    fontFamily: "regular",
-    fontSize: 20,
-  },
-});
 
 export default Home;

@@ -4,6 +4,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BottomNavigate from "./navigate/BottomNavigate";
+import { ROUTERS_PATH } from "./routers";
+import Search from "screens/Search";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -28,8 +30,13 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="HomeScreen"
+          name={ROUTERS_PATH.HOME_SCREENS}
           component={BottomNavigate}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={ROUTERS_PATH.SEARCH}
+          component={Search}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

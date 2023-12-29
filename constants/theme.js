@@ -1,13 +1,14 @@
-// import { Dimensions } from "react-native";
-// const { height, width } = Dimensions.get(window);
-
 const COLORS = {
-  primary: "#ee4d2d",
-  secondary: "#ddf0ff",
+  primary: "#f87146",
+  secondary: "#332c45",
   tertiary: "#ff77554",
+
+  textGray: "#616161",
 
   gray: "#83829a",
   gray2: "#c1c0c8",
+  gray3: "#66707a",
+  gray4: "#9ca4ab",
 
   white: "#fff",
   offWhite: "#f3f4f8",
@@ -15,6 +16,7 @@ const COLORS = {
   black: "#000",
   red: "#e81d4d",
   green: "#00c135",
+  blue1: "#ecf1f6",
 };
 
 const SIZES = {
@@ -24,8 +26,6 @@ const SIZES = {
   large: 20,
   xLarge: 24,
   xXLarge: 44,
-  // height,
-  // width,
 };
 
 const SHADOWS = {
@@ -41,4 +41,17 @@ const SHADOWS = {
   },
 };
 
-export { COLORS, SIZES, SHADOWS };
+const PADDING_SCREEN = {
+  LARGE: 20,
+  MEDIUM: 16,
+  SMALL: 12,
+};
+
+const Z_INDEX = {
+  LARGE: 99,
+  MEDIUM: 29,
+  SMALL: 19,
+};
+const PADDING_HORIZONTAL = "6%";
+
+export { COLORS, SIZES, SHADOWS, PADDING_SCREEN, PADDING_HORIZONTAL, Z_INDEX };
